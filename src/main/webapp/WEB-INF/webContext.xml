@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <context:component-scan base-package="ua.epam.rd.web" />
+    <mvc:annotation-driven />
+    <!--<tx:annotation-driven />-->
+
+    <security:global-method-security secured-annotations="enabled"/>
+
+    <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <map>
+                <entry key="SQLException" value="databaseErrorPage"/>
+            </map>
+        </property>
+        <!--page-->
+        <property name="defaultErrorView" value="error"/>
+        <!-- exception-->
+        <property name="exceptionAttribute" value="ex"/>
+    </bean>
+
+    <!--потрібен для імплементації інтерфейсу org.springframework.web.servlet.mvc.Controller-->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+        <!--<property name="mappings">-->
+            <!--<props>-->
+                <!--&lt;!&ndash;helloController знаходиться по анотації в HelloSpringMVC&ndash;&gt;-->
+                <!--<prop key="/hello">helloController</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--наступний бін дозволяє додавати до юрл префікс і суфікс. JstlView потрібно щоб нормально читався jstl-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>
