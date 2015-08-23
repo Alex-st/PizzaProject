@@ -6,7 +6,10 @@
 package ua.epam.rd.repository;
 
 import java.util.List;
+import java.util.Map;
+
 import ua.epam.rd.domain.Order;
+import ua.epam.rd.domain.Pizza;
 
 
 public interface OrderRepository {
@@ -20,5 +23,7 @@ public interface OrderRepository {
     Order save(Order order);
 
     public void update(Order order);
+
+    public Order createNewOrder(Map<Pizza, Integer> orderMap);
     
 }

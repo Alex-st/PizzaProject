@@ -6,7 +6,10 @@
 package ua.epam.rd.repository;
 
 import java.util.List;
+import java.util.Map;
+
 import ua.epam.rd.domain.Order;
+import ua.epam.rd.domain.Pizza;
 
 /**
  *
@@ -38,5 +41,8 @@ public class TestOrderRepositoryImpl implements OrderRepository {
     public void update(Order order) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    public Order createNewOrder(Map<Pizza, Integer> orderMap) {
+        return null;
+    }
 }

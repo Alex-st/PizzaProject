@@ -9,12 +9,15 @@ package ua.epam.rd.service;
 //import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.epam.rd.domain.Order;
 import ua.epam.rd.domain.OrderStatus;
+import ua.epam.rd.domain.Pizza;
 import ua.epam.rd.repository.OrderRepository;
 
 /**
@@ -53,7 +56,8 @@ public class SimpleOrderService implements OrderService {
 
     @Lookup(value = "order")
     public Order createEmpyOrder() {
-        return null;
+     return new Order();
+//        return null;
     }
 
     boolean isWorkingDay() {
@@ -64,16 +68,18 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     @Transactional
-    public Order placeOrder(Order order) {
+    public Order placeOrder(Map<Pizza, Integer> map) {
         if (!isWorkingDay()) {
             throw new IllegalStateException();
         }
 
-        if (order.getItems().isEmpty()) {
+        if (map.keySet().isEmpty()) {
+            System.out.println("Map keyset is empty");
             throw new IllegalArgumentException();
         }
 
-        return orderRepository.save(order);
+        return orderRepository.createNewOrder(map);
+        //return orderRepository.save(order);
     }
     
     @Override

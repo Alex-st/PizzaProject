@@ -34,11 +34,11 @@ public class AppRunner {
         
         Order newOrder1 = orderService.createNewOrder();
         newOrder1.addItems(pizzas.get(0), pizzas.get(1));
-        orderService.placeOrder(newOrder1);
+      //  orderService.placeOrder(newOrder1);
         
         Order newOrder2 = orderService.createNewOrder();
         newOrder2.addItems(pizzas.get(0));
-        orderService.placeOrder(newOrder2);
+      //  orderService.placeOrder(newOrder2);
         
         List<Order> orders = orderService.getAllOrders();
         

@@ -22,17 +22,17 @@
 
     <security:global-method-security secured-annotations="enabled"/>
 
-    <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="exceptionMappings">
-            <map>
-                <entry key="SQLException" value="databaseErrorPage"/>
-            </map>
-        </property>
-        <!--page-->
-        <property name="defaultErrorView" value="error"/>
-        <!-- exception-->
-        <property name="exceptionAttribute" value="ex"/>
-    </bean>
+    <!--<bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+        <!--<property name="exceptionMappings">-->
+            <!--<map>-->
+                <!--<entry key="SQLException" value="databaseErrorPage"/>-->
+            <!--</map>-->
+        <!--</property>-->
+        <!--&lt;!&ndash;page&ndash;&gt;-->
+        <!--<property name="defaultErrorView" value="error"/>-->
+        <!--&lt;!&ndash; exception&ndash;&gt;-->
+        <!--<property name="exceptionAttribute" value="ex"/>-->
+    <!--</bean>-->
 
     <!--потрібен для імплементації інтерфейсу org.springframework.web.servlet.mvc.Controller-->
     <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->

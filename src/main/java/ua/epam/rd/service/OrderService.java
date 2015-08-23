@@ -6,7 +6,10 @@
 package ua.epam.rd.service;
 
 import java.util.List;
+import java.util.Map;
+
 import ua.epam.rd.domain.Order;
+import ua.epam.rd.domain.Pizza;
 
 /**
  *
@@ -17,7 +20,7 @@ public interface OrderService {
     List<Order> getAllOrders();
     Order getOrderById(Long id);
     Order createNewOrder();
-    Order placeOrder(Order order);
+    Order placeOrder(Map<Pizza, Integer> order);
     public boolean cancelOrder(Long orderId, String email);
     
 }

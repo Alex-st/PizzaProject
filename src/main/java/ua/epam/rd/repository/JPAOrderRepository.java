@@ -6,12 +6,15 @@
 package ua.epam.rd.repository;
 
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.epam.rd.domain.Order;
+import ua.epam.rd.domain.OrderStatus;
+import ua.epam.rd.domain.Pizza;
 
 @Repository("orderRepository")
 public class JPAOrderRepository implements OrderRepository {
@@ -43,6 +46,10 @@ public class JPAOrderRepository implements OrderRepository {
         return order;
     }
 
+    public void createNewOrder() {
+
+    }
+
     @Override
     public Order save(Order order) {
         em.persist(order);
@@ -59,4 +66,12 @@ public class JPAOrderRepository implements OrderRepository {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
+    public Order createNewOrder(Map<Pizza, Integer> orderMap) {
+        Order newOrder = new Order();
+        newOrder.setItems(orderMap);
+        newOrder.setOrderStatus(OrderStatus.NEW);
+        em.persist(newOrder);
+        return newOrder;
+    }
 }
