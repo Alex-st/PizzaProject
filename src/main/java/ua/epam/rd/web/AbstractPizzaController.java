@@ -36,6 +36,9 @@ abstract public class AbstractPizzaController {
                         Pizza pizza = null;
                         if (pizzaId != null && !pizzaId.trim().isEmpty()) {
                             Long id = Long.valueOf(pizzaId);
+
+                            System.out.println(id);
+
                             pizza = getPizzaById(id);
                         }
                         setValue(pizza);

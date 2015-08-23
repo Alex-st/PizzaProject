@@ -12,14 +12,14 @@
 </head>
 <body>
 <h1>Create new pizza</h1>
-
 <form action='addnew' method="post">
+  <input type="hidden" name="id" value="${pizza.id}"/>
   Name
-  <input type='text' name='name' value=''/><br>
+  <input type='text' name='name' value="${pizza.name}"/><br>
   Type
-  <input type='text' name='type' value=''/><br>
+  <input type='text' name='type' value="${pizza.type}"/><br>
   Price
-  <input type='text' name='price' value=''/><br>
+  <input type='text' name='price' value="${pizza.price}"/><br>
 
   <button type = "reset" name="Reset" value="reset">Reset</button>
   <button type="submit" name="send" value="Create">Create</button>

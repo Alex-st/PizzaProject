@@ -7,14 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
     <title>Pizzas List</title>
 </head>
 <body>
-User name: ${name} </br>
-Roles: ${roles} </br></br>
+
 
 <table border="1">
     <thead><tr>
@@ -28,12 +28,22 @@ Roles: ${roles} </br></br>
     <tr><td><p><c:out value="${pizza.id}" /></p></td>
         <td><p><c:out value="${pizza.name}" /></p></td>
         <td><p><c:out value="${pizza.type}" /></p></td>
-        <td><p><c:out value="${pizza.price}" /></p></td></tr>
+        <td><p><c:out value="${pizza.price}" /></p></td>
+      <td>
+          <form method="get" action="edit" >
+              <input type="hidden" name="pizzaId" value="${pizza.id}" />
+              <input type="submit" value="Edit" />
+          </form>
+      </td>
+    </tr>
   </c:forEach>
 
 </table>
-<a href="createPizzaForm">Create new pizza</a><br>
-<a href="createOrderForm">Create new order</a>
+<sec:authorize access="hasRole('ADMIN')">
+    <a href="createPizzaForm">Create new pizza</a><br>
+</sec:authorize>
+
+<%--<a href="createOrderForm">Create new order</a>--%>
 
 <c:url var="logoutUrl" value="/logout"/>
 <form action="${logoutUrl}" method="post">

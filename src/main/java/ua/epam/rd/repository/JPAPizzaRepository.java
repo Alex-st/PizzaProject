@@ -34,7 +34,18 @@ public class JPAPizzaRepository implements PizzaRepository {
     @Transactional
     @Override
     public Long save(Pizza pizza) {
-        em.persist(pizza);
+
+        System.out.println("JPAPizzaRepository:"+pizza);
+        if (pizza.getId()!=null) {
+            Pizza temp = em.find(Pizza.class, pizza.getId());
+            temp.setName(pizza.getName());
+            temp.setPrice(pizza.getPrice());
+            temp.setType(pizza.getType());
+            em.merge(temp);
+        }
+        else
+            em.persist(pizza);
+
         return pizza.getId();
     }
 

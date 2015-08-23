@@ -35,9 +35,9 @@ public class PizzaController extends AbstractPizzaController{
         model.addAttribute("pizzas", pizzaService.getAllPizzas());
 
         //added according to SrpingSecurity
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("name", auth.getName());
-        model.addAttribute("roles", auth.getAuthorities().toString());
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("name", auth.getName());
+//        model.addAttribute("roles", auth.getAuthorities().toString());
         //ThreadLocal thl = new ThreadLocal();
 
         return "pizzas";
@@ -71,7 +71,7 @@ public class PizzaController extends AbstractPizzaController{
 //        pizzaService.getAllPizzas());
         return "redirect:";
     }
-    @Secured("ROLE_ADMIN")
+ //   @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String pizzaEdit(@RequestParam("pizzaId") Pizza pizza, Model model) {
 
@@ -79,7 +79,8 @@ public class PizzaController extends AbstractPizzaController{
 //
 //        if (pizza == null)
 //            throw new NotFoundPizzaException("Pizza not found with id:"+id);
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+
 
         model.addAttribute("pizza", pizza);
 
@@ -98,16 +99,16 @@ public class PizzaController extends AbstractPizzaController{
 //        return model;
 //    }
 //
-    @RequestMapping(value = "/createNewOrder", method = RequestMethod.GET)
-    public String createOrderForm(Model model) {
-        return "createOrder";
-    }
-
-    protected Pizza getPizzaById(Long id) {
-
-
-        return new Pizza();
-    }
+//    @RequestMapping(value = "/createNewOrder", method = RequestMethod.GET)
+//    public String createOrderForm(Model model) {
+//        return "createOrder";
+//    }
+//
+//    protected Pizza getPizzaById(Long id) {
+//
+//
+//        return new Pizza();
+//    }
 
 //    @InitBinder
 //    private void pizzaBinder(WebDataBinder binder) {

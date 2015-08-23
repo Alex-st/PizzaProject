@@ -12,6 +12,8 @@
 </head>
 <body>
 <H1>New order!!!</H1>
+<%--User name: ${name} </br>--%>
+<%--Roles: ${roles} </br></br>--%>
 
 <%--<form action='addnew' method="post">--%>
   <%--Name--%>
