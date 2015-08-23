@@ -45,9 +45,9 @@ public class OrderController {
         model.addAttribute("map", entities);
 //
 //        //added according to SrpingSecurity
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        model.addAttribute("name", auth.getName());
-//        model.addAttribute("roles", auth.getAuthorities().toString());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("name", auth.getName());
+        model.addAttribute("roles", auth.getAuthorities().toString());
 //        //ThreadLocal thl = new ThreadLocal();
 
         return "createOrder";

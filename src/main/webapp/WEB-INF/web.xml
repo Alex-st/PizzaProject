@@ -35,8 +35,8 @@
 
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
-        <!--<url-pattern>/*</url-pattern>-->
-        <url-pattern>/order/*</url-pattern>
+        <url-pattern>/*</url-pattern>
+        <!--<url-pattern>/order/*</url-pattern>-->
     </filter-mapping>
 
     <!--підгружаємо додаткові спрингові контексти-->

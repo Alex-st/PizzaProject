@@ -30,7 +30,8 @@
     </http>
 
     <http>
-        <intercept-url pattern="/**" access="isFullyAuthenticated()" />
+        <!--<intercept-url pattern="/order/**" access="isFullyAuthenticated()" />-->
+        <intercept-url pattern="/jsp/order/**" access="hasRole('ROLE_USER')" />
         <form-login />
         <logout />
         <!--        <csrf disabled="false"/>-->
