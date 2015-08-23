@@ -15,35 +15,41 @@
 </head>
 <body>
 
+<table>
+    <tr>
+        <td>
+            <c:import url="/WEB-INF/jsp/menu.jsp"></c:import>
+        </td>
+        <td>
+            <table border="1">
+                <thead><tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                </tr></thead>
 
-<table border="1">
-    <thead><tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Price</th>
-    </tr></thead>
+              <c:forEach var="pizza" items="${pizzas}">
+                <tr><td><p><c:out value="${pizza.id}" /></p></td>
+                    <td><p><c:out value="${pizza.name}" /></p></td>
+                    <td><p><c:out value="${pizza.type}" /></p></td>
+                    <td><p><c:out value="${pizza.price}" /></p></td>
+                  <td>
+                      <form method="get" action="edit" >
+                          <input type="hidden" name="pizzaId" value="${pizza.id}" />
+                          <input type="submit" value="Edit" />
+                      </form>
+                  </td>
+                </tr>
+              </c:forEach>
 
-  <c:forEach var="pizza" items="${pizzas}">
-    <tr><td><p><c:out value="${pizza.id}" /></p></td>
-        <td><p><c:out value="${pizza.name}" /></p></td>
-        <td><p><c:out value="${pizza.type}" /></p></td>
-        <td><p><c:out value="${pizza.price}" /></p></td>
-      <td>
-          <form method="get" action="edit" >
-              <input type="hidden" name="pizzaId" value="${pizza.id}" />
-              <input type="submit" value="Edit" />
-          </form>
-      </td>
+            </table>
+        </td>
     </tr>
-  </c:forEach>
-
 </table>
-<sec:authorize access="hasRole('ADMIN')">
-    <a href="createPizzaForm">Create new pizza</a><br>
-</sec:authorize>
-
-<%--<a href="createOrderForm">Create new order</a>--%>
+<%--<sec:authorize access="hasRole('ADMIN')">--%>
+    <%--<a href="createPizzaForm">Create new pizza</a><br>--%>
+<%--</sec:authorize>--%>
 
 <c:url var="logoutUrl" value="/logout"/>
 <form action="${logoutUrl}" method="post">

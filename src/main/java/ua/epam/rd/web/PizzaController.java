@@ -71,7 +71,7 @@ public class PizzaController extends AbstractPizzaController{
 //        pizzaService.getAllPizzas());
         return "redirect:";
     }
- //   @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String pizzaEdit(@RequestParam("pizzaId") Pizza pizza, Model model) {
 
