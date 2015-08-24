@@ -9,29 +9,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.Basic;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyJoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.Version;
+import javax.persistence.*;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- *
- * @author andrii
+ * Created by alex on 8/14/15.
  */
 @Entity
 @Table(name = "Orders")
@@ -55,6 +39,11 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private Users customer;
+
+
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
@@ -62,9 +51,6 @@ public class Order {
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
-
-//    @Version
-//    private Long version;
 
     public Long getOrderId() {
         return orderId;
@@ -101,7 +87,19 @@ public class Order {
             this.items.put(item, count);
         }
     }
-    
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Users getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Users customer) {
+        this.customer = customer;
+    }
+
     public void addItems(List<Pizza> items) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

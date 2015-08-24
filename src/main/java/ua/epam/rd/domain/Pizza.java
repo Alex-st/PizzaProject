@@ -7,6 +7,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Created by alex on 8/14/15.
+ */
+
 @Entity
 public class Pizza {
     @Id

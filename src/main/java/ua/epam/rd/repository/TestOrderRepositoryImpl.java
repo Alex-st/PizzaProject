@@ -12,8 +12,7 @@ import ua.epam.rd.domain.Order;
 import ua.epam.rd.domain.Pizza;
 
 /**
- *
- * @author andrii
+ * Created by alex on 8/14/15.
  */
 public class TestOrderRepositoryImpl implements OrderRepository {
 

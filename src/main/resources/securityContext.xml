@@ -39,11 +39,18 @@
     
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="testuser" password="123" authorities="ROLE_USER, ROLE_ADMIN" />
-                <user name="bob" password="456" authorities="ROLE_USER" />
-            </user-service>
+            <!--<user-service>-->
+                <!--<user name="testuser" password="123" authorities="ROLE_USER, ROLE_ADMIN" />-->
+                <!--<user name="bob" password="456" authorities="ROLE_USER" />-->
+            <!--</user-service>-->
+
+            <jdbc-user-service data-source-ref="dataSource"
+            users-by-username-query="select login, pass, 'true' as enabled from Users where login=?"
+            authorities-by-username-query="select login, roles as authorities from Users
+                      where login = ?"/>
         </authentication-provider>
-    </authentication-manager>    
+    </authentication-manager>
+
+
     
 </beans:beans>
