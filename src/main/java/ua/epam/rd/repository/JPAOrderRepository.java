@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ua.epam.rd.repository;
 
 import java.util.List;
@@ -10,12 +6,18 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.epam.rd.domain.Order;
 import ua.epam.rd.domain.OrderStatus;
 import ua.epam.rd.domain.Pizza;
+import ua.epam.rd.domain.Users;
 
+/**
+ * Created by alex on 8/15/15.
+ */
 @Repository("orderRepository")
 public class JPAOrderRepository implements OrderRepository {
 
@@ -67,11 +69,13 @@ public class JPAOrderRepository implements OrderRepository {
     }
 
 
-    public Order createNewOrder(Map<Pizza, Integer> orderMap) {
+    public Order createNewOrder(Map<Pizza, Integer> orderMap, Users user) {
         Order newOrder = new Order();
         newOrder.setItems(orderMap);
         newOrder.setOrderStatus(OrderStatus.NEW);
+        newOrder.setCustomer(user);
         em.persist(newOrder);
         return newOrder;
     }
+
 }

@@ -9,8 +9,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ua.epam.rd.domain.Order;
 import ua.epam.rd.domain.Pizza;
+import ua.epam.rd.domain.Users;
 import ua.epam.rd.service.OrderService;
 import ua.epam.rd.service.PizzaService;
+import ua.epam.rd.service.UsersService;
 
 import java.beans.PropertyEditorSupport;
 import java.util.HashMap;
@@ -29,6 +31,9 @@ public class OrderController {
 
     @Autowired
     protected PizzaService pizzaService;
+
+    @Autowired
+    protected UsersService usersService;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -62,6 +67,14 @@ public class OrderController {
         for(Map.Entry<String, String> i: allRequestParams.entrySet()) {
             System.out.println(i.getKey());
 
+            //our form also has hidden crf field, so we need to check whether parameter is Integer or not
+            try {
+                Integer.parseInt(i.getKey());
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong number");
+                continue;
+            }
+
             if (Integer.valueOf(i.getValue()) < 1) {
                 continue;
             }
@@ -72,7 +85,16 @@ public class OrderController {
         }
 
         model.addAttribute("OrderPrice", orderPrice);
-        orderService.placeOrder(map);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+//        System.out.println("auth name: "+auth.getName());
+
+        //Users customer = usersService.getUserByLogin(auth.getName());
+
+        //System.out.println("bd name: "+customer.getName());
+
+        orderService.placeOrder(map, usersService.getUserByLogin(auth.getName()));
 
         return "redirect:";
     }

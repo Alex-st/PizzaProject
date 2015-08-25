@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ua.epam.rd.service;
 
-//import java.time.DayOfWeek;
-//import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.epam.rd.domain.Order;
 import ua.epam.rd.domain.OrderStatus;
 import ua.epam.rd.domain.Pizza;
+import ua.epam.rd.domain.Users;
 import ua.epam.rd.repository.OrderRepository;
 
 /**
- *
- * @author andrii
+ * Created by alex on 8/15/15.
  */
 @Service("orderService")
 public class SimpleOrderService implements OrderService {
@@ -68,7 +62,7 @@ public class SimpleOrderService implements OrderService {
 
     @Override
     @Transactional
-    public Order placeOrder(Map<Pizza, Integer> map) {
+    public Order placeOrder(Map<Pizza, Integer> map, Users user) {
         if (!isWorkingDay()) {
             throw new IllegalStateException();
         }
@@ -78,7 +72,7 @@ public class SimpleOrderService implements OrderService {
             throw new IllegalArgumentException();
         }
 
-        return orderRepository.createNewOrder(map);
+        return orderRepository.createNewOrder(map, user);
         //return orderRepository.save(order);
     }
     

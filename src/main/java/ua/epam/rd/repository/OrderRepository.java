@@ -8,8 +8,10 @@ package ua.epam.rd.repository;
 import java.util.List;
 import java.util.Map;
 
+
 import ua.epam.rd.domain.Order;
 import ua.epam.rd.domain.Pizza;
+import ua.epam.rd.domain.Users;
 
 
 public interface OrderRepository {
@@ -24,6 +26,8 @@ public interface OrderRepository {
 
     public void update(Order order);
 
-    public Order createNewOrder(Map<Pizza, Integer> orderMap);
+    //public void addCustomer(Users user);
+
+    public Order createNewOrder(Map<Pizza, Integer> orderMap, Users user);
     
 }

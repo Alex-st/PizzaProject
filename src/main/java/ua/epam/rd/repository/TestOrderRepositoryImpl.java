@@ -10,6 +10,7 @@ import java.util.Map;
 
 import ua.epam.rd.domain.Order;
 import ua.epam.rd.domain.Pizza;
+import ua.epam.rd.domain.Users;
 
 /**
  * Created by alex on 8/14/15.
@@ -41,7 +42,7 @@ public class TestOrderRepositoryImpl implements OrderRepository {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Order createNewOrder(Map<Pizza, Integer> orderMap) {
+    public Order createNewOrder(Map<Pizza, Integer> orderMap, Users user) {
         return null;
     }
 }

@@ -31,7 +31,8 @@
 
     <http>
         <!--<intercept-url pattern="/order/**" access="isFullyAuthenticated()" />-->
-        <intercept-url pattern="/jsp/order/**" access="hasRole('ROLE_USER')" />
+        <!--<intercept-url pattern="/jsp/order/**" access="hasRole('ROLE_USER')" />-->
+        <intercept-url pattern="/jsp/order/**" access="hasAnyRole('USER', 'ADMIN')"/>
         <form-login />
         <logout />
         <!--        <csrf disabled="false"/>-->
@@ -45,12 +46,11 @@
             <!--</user-service>-->
 
             <jdbc-user-service data-source-ref="dataSource"
-            users-by-username-query="select login, pass, 'true' as enabled from Users where login=?"
-            authorities-by-username-query="select login, roles as authorities from Users
-                      where login = ?"/>
+            users-by-username-query="select login as username, pass as password, 'true' as enabled from pizzadb.Users where login=?"
+            authorities-by-username-query="select login as username, roles as authorities from pizzadb.Users where login = ?"/>
         </authentication-provider>
     </authentication-manager>
 
-
+    <!--<global-method-security secured-annotations="enabled"/>-->
     
 </beans:beans>
