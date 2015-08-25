@@ -124,6 +124,13 @@ public class OrderController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<Order> orders = orderService.getAllOrders();
 
+        for (Order i: orders) {
+            System.out.println(i.getOrderId());
+            for(Map.Entry<Pizza, Integer> j: i.getOrderItems().entrySet()) {
+                System.out.println(j.getKey().getName());
+                System.out.println(j.getValue());
+            }
+        }
         //System.out.println(orders.size());
 
         model.addAttribute("orders", orders);

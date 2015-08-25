@@ -37,13 +37,13 @@ Balance:${balance} </br>
           <td><p><c:out value="${orders.date}" /></p></td>
           <td><p><c:out value="${orders.orderStatus}" /></p></td>
           <td><p>
-            <%--<c:out value="${orders.items}"/>--%>
-              <c:forEach var="pizzas" items="${orders.items}" varStatus="inner">
-                <c:out value="${pizzas.key.name}" /> - <c:out value="${pizzas.value}" /></br>
-              </c:forEach>
+            <c:forEach var="pizzas" items="${orders.orderItems}" varStatus="inner">
+              <c:out value="${pizzas.key.name}" /> - <c:out value="${pizzas.value}" /></br>
+            </c:forEach>
           </p></td>
         </tr>
       </c:forEach>
+
     </table>
 
   </td>

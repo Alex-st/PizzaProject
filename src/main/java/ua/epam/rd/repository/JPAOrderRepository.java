@@ -64,14 +64,14 @@ public class JPAOrderRepository implements OrderRepository {
         Order temp = (Order) em.find(Order.class, id);
         temp.setDate(order.getDate());
         temp.setOrderStatus(order.getOrderStatus());
-        temp.setItems(order.getItems());
+        temp.setOrderItems(order.getOrderItems());
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
     public Order createNewOrder(Map<Pizza, Integer> orderMap, Users user) {
         Order newOrder = new Order();
-        newOrder.setItems(orderMap);
+        newOrder.setOrderItems(orderMap);
         newOrder.setOrderStatus(OrderStatus.NEW);
         newOrder.setCustomer(user);
         em.persist(newOrder);

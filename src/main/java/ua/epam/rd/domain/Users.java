@@ -27,7 +27,7 @@ public class Users {
         @Enumerated(EnumType.STRING)
         private Roles roles;
 
-        @OneToMany(mappedBy = "customer")
+        @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
         private Set<Order> orders = new HashSet<>();
 
 

@@ -18,7 +18,7 @@
   <li><a href="${pageContext.request.contextPath}/login.jsp">Sign in</a>
   </li>
   <sec:authorize access="hasRole('USER')">
-    <li><a href="${pageContext.request.contextPath}/jsp/pizza/showUserOrders">Show user orders</a>
+    <li><a href="${pageContext.request.contextPath}/jsp/order/showUserOrders">Show user orders</a>
     </li>
   </sec:authorize>
   <sec:authorize access="hasRole('ADMIN')">

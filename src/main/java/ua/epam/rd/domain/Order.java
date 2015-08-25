@@ -29,12 +29,12 @@ public class Order {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "ORDER_ITEMS",
             joinColumns = @JoinColumn(name = "ORDER_ID"))
     @MapKeyJoinColumn(name = "PIZZA_ID", referencedColumnName = "ID")
     @Column(name = "ITEMS")
-    private Map<Pizza, Integer> items = new HashMap<>();
+    private Map<Pizza, Integer> orderItems = new HashMap<>();
     
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -64,12 +64,12 @@ public class Order {
         this.date = date;
     }
     
-    public Map<Pizza, Integer> getItems() {
-        return items;
+    public Map<Pizza, Integer> getOrderItems() {
+        return orderItems;
     }    
 
-    public void setItems(Map<Pizza, Integer> items) {
-        this.items = items;
+    public void setOrderItems(Map<Pizza, Integer> items) {
+        this.orderItems = items;
     }
 
     public Order() {
@@ -82,9 +82,9 @@ public class Order {
 
     public void addItems(Pizza... items) {
         for (Pizza item : items) {
-            Integer count = this.items.get(item);            
+            Integer count = this.orderItems.get(item);
             count = (count == null ? 1 : count + 1);           
-            this.items.put(item, count);
+            this.orderItems.put(item, count);
         }
     }
 
