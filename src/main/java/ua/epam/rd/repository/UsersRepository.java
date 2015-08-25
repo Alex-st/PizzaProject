@@ -11,4 +11,6 @@ import java.util.Set;
 public interface UsersRepository {
     public Users getUserByLogin(String login);
     public Set<Order> getAllUserOrders(Users user);
+    public void increaseBalance(Users user, Double addend);
+    public Double showUserBalance(Users user);
 }

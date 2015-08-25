@@ -27,4 +27,16 @@ public class SimpleUsersService implements UsersService {
     public Users getUserByLogin(String login) {
         return usersRepository.getUserByLogin(login);
     }
+
+    @Override
+    public void increaseCustomerBalance(Users user, Double addend) {
+        usersRepository.increaseBalance(user, addend);
+    }
+
+    @Override
+    public Double getUserBalance(Users user) {
+        return usersRepository.showUserBalance(user);
+    }
+
+
 }

@@ -11,4 +11,6 @@ import java.util.Set;
 public interface UsersService {
     public Set<Order> getAllUserOrders(Users user);
     public Users getUserByLogin(String login);
+    public void increaseCustomerBalance(Users user, Double addend);
+    public Double getUserBalance(Users user);
 }

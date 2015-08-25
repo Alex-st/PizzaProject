@@ -53,6 +53,7 @@ public class OrderController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("name", auth.getName());
         model.addAttribute("roles", auth.getAuthorities().toString());
+        model.addAttribute("balance", usersService.getUserBalance(usersService.getUserByLogin(auth.getName())));
 //        //ThreadLocal thl = new ThreadLocal();
 
         return "createOrder";
@@ -63,6 +64,9 @@ public class OrderController {
 
         Map<Pizza, Integer> map = new HashMap<>();
         Double orderPrice = 0.;
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Users customer = usersService.getUserByLogin(auth.getName());
 
         for(Map.Entry<String, String> i: allRequestParams.entrySet()) {
             System.out.println(i.getKey());
@@ -83,18 +87,11 @@ public class OrderController {
             map.put(tempPizza, Integer.valueOf(i.getValue()));
 
         }
-
+        orderPrice -= usersService.getUserBalance(customer)*0.1;
         model.addAttribute("OrderPrice", orderPrice);
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-//        System.out.println("auth name: "+auth.getName());
-
-        //Users customer = usersService.getUserByLogin(auth.getName());
-
-        //System.out.println("bd name: "+customer.getName());
-
-        orderService.placeOrder(map, usersService.getUserByLogin(auth.getName()));
+        orderService.placeOrder(map, customer);
+        usersService.increaseCustomerBalance(customer, orderPrice);
 
         return "redirect:";
     }

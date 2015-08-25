@@ -15,7 +15,8 @@
 <body>
 <H1>New order!!!</H1>
 User name: ${name} </br>
-Roles: ${roles} </br></br>
+Roles: ${roles} </br>
+Balance:${balance}</br>
 
 <c:if test="${not empty OrderPrice}">
   Your order for ${OrderPrice} was approved.</br>
