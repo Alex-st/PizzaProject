@@ -1,6 +1,7 @@
 package ua.epam.rd.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,13 +21,14 @@ public class Users {
 
         private String name;
 
+        // balance on account card
         private Double balance;
 
         @Enumerated(EnumType.STRING)
         private Roles roles;
 
         @OneToMany(mappedBy = "customer")
-        private Set<Order> orders;
+        private Set<Order> orders = new HashSet<>();
 
 
     public Users() {}

@@ -31,7 +31,6 @@ public class SimpleOrderService implements OrderService {
     @Override
     public List<Order> getAllOrders() {
         return orderRepository.getAllOrders();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ua.epam.rd.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,7 @@ import ua.epam.rd.service.PizzaService;
 import ua.epam.rd.service.UsersService;
 
 import java.beans.PropertyEditorSupport;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by alex on 8/14/15.
@@ -35,6 +34,11 @@ public class OrderController {
     @Autowired
     protected UsersService usersService;
 
+    private void fillUsersParameters(Authentication auth, Model model) {
+        model.addAttribute("name", auth.getName());
+        model.addAttribute("roles", auth.getAuthorities().toString());
+        model.addAttribute("balance", usersService.getUserBalance(usersService.getUserByLogin(auth.getName())));
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showAllPizzas(Model model) {
@@ -51,9 +55,10 @@ public class OrderController {
 //
 //        //added according to SrpingSecurity
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("name", auth.getName());
-        model.addAttribute("roles", auth.getAuthorities().toString());
-        model.addAttribute("balance", usersService.getUserBalance(usersService.getUserByLogin(auth.getName())));
+        fillUsersParameters(auth, model);
+//        model.addAttribute("name", auth.getName());
+//        model.addAttribute("roles", auth.getAuthorities().toString());
+//        model.addAttribute("balance", usersService.getUserBalance(usersService.getUserByLogin(auth.getName())));
 //        //ThreadLocal thl = new ThreadLocal();
 
         return "createOrder";
@@ -62,14 +67,15 @@ public class OrderController {
     @RequestMapping(value = "/placeOrder", method = RequestMethod.POST)
     public String placeOrder(@RequestParam Map<String,String> allRequestParams, Model model) {
 
+        //map for storing pizzas in order
         Map<Pizza, Integer> map = new HashMap<>();
+        //Price of order
         Double orderPrice = 0.;
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Users customer = usersService.getUserByLogin(auth.getName());
 
         for(Map.Entry<String, String> i: allRequestParams.entrySet()) {
-            System.out.println(i.getKey());
 
             //our form also has hidden crf field, so we need to check whether parameter is Integer or not
             try {
@@ -82,20 +88,47 @@ public class OrderController {
             if (Integer.valueOf(i.getValue()) < 1) {
                 continue;
             }
+            //counting current order price without discount
             Pizza tempPizza = pizzaService.getPizzaById(Long.valueOf(i.getKey()));
             orderPrice += tempPizza.getPrice()*Integer.valueOf(i.getValue());
             map.put(tempPizza, Integer.valueOf(i.getValue()));
 
         }
+        //сounting current order price with discount
         orderPrice -= usersService.getUserBalance(customer)*0.1;
         model.addAttribute("OrderPrice", orderPrice);
 
         orderService.placeOrder(map, customer);
         usersService.increaseCustomerBalance(customer, orderPrice);
 
+
         return "redirect:";
     }
 
+    @RequestMapping(value = "/showUserOrders", method = RequestMethod.GET)
+    public String showAllUserOrders(Model model) {
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Set<Order> orders = usersService.getAllUserOrders(usersService.getUserByLogin(auth.getName()));
 
+        model.addAttribute("orders", orders);
+        fillUsersParameters(auth, model);
+
+        return "orderList";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/showAllOrders", method = RequestMethod.GET)
+    public String showAllOrders(Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<Order> orders = orderService.getAllOrders();
+
+        //System.out.println(orders.size());
+
+        model.addAttribute("orders", orders);
+        fillUsersParameters(auth, model);
+
+        return "orderList";
+    }
 }
